@@ -1,0 +1,100 @@
+//Java Program: ONLINE EXAM
+import java.util.Scanner;
+public class Main {
+    static String username = "EC3231";
+    static String password = "2209";
+    static int timeRemaining = 0;
+    static boolean isLoggedIn = false;
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Welcome to the online exam system!");
+        while (true) {
+            System.out.println("\nPlease select an option:");
+            System.out.println("1. Login");
+            System.out.println("2. Update Profile and Password");
+            System.out.println("3. Start Exam");
+            System.out.println("4. Logout");
+            int choice = scanner.nextInt();
+            switch (choice) {
+                case 1:
+                    login(scanner);
+                    break;
+                case 2:
+                    updateProfileAndPassword(scanner);
+                    break;
+                case 3:
+                    if (isLoggedIn) {
+                        startExam(scanner);
+                    } else {
+                        System.out.println("Please login first!");
+                    }
+                    break;
+                case 4:
+                    if (isLoggedIn) {
+                        logout();
+                        System.exit(0);
+                    } else {
+                        System.out.println("Please login first!");
+                    }
+                    break;
+                default:
+                    System.out.println("Invalid choice!");
+            }
+        }
+    }
+
+    public static void login(Scanner scanner) {
+        System.out.println("Enter username:");
+        String inputUsername = scanner.next();
+        System.out.println("Enter password:");
+        String inputPassword = scanner.next();
+        if (inputUsername.equals(username) && inputPassword.equals(password)) {
+            isLoggedIn = true;
+            System.out.println("Login successful!");
+        } else {
+            System.out.println("Invalid Login, Try again");
+        }
+    }
+
+    public static void updateProfileAndPassword(Scanner scanner) {
+        if (isLoggedIn) {
+            System.out.println("Enter new username:");
+            String newUsername = scanner.next();
+            System.out.println("Enter new password:");
+            String newPassword = scanner.next();
+            username = newUsername;
+            password = newPassword;
+            System.out.println("Profile and Password updated successfully!");
+        } else {
+            System.out.println("Please login first!");
+        }
+    }
+
+    public static void startExam(Scanner scanner) {
+        System.out.println("Starting exam...");
+        timeRemaining = 1; // 1 minute for demo purposes
+        while (timeRemaining > 0) {
+            System.out.println("Time remaining: " + timeRemaining + " seconds");
+            System.out.println("Which is the greater number in following: \n 100, 50, 89, 73");
+            System.out.println("Select an answer:");
+            System.out.println("A. 100");
+            System.out.println("B. 73");
+            System.out.println("C. 88");
+            System.out.println("D. 451");
+            int answer = scanner.nextInt();
+            // process the answer here
+            timeRemaining--;
+        }
+        System.out.println("STOP!!!!");
+        // automatically submit the exam here
+    }
+
+    public static void logout() {
+        isLoggedIn = false;
+        username = "EC3231";
+        password = "2209";
+        timeRemaining = 0;
+        System.out.println("Logged out successfully!");
+    }
+}
